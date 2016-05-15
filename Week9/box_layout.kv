@@ -1,0 +1,32 @@
+GridLayout:
+    rows: 2
+    cols: 2
+    height: 200
+    Button:
+        text: 'Clear'
+        id: clear_button
+        size_hint: 0.2, 0.5
+        size: 100, 100
+        on_press: app.handle_clear()
+
+    TextInput:
+        text: ''
+        id: user_input
+        size_hint: 0.8, 0.5
+        size: 600, 100
+
+
+    Button:
+        text: 'Greet'
+        id: greet_button
+        size_hint: 0.2, 0.5
+        size: 100, 100
+        on_press: app.handle_greet()
+
+    Label:
+
+        text: 'Enter your Name'
+        id: output_screen
+        color: (1, 1, 0 ,1)
+        size_hint: 0.8, 0.5
+        size: 600, 100
