@@ -1,5 +1,8 @@
 from kivy.app import App
 from kivy.lang import Builder
+from kivy.config import Config
+Config.set('graphics', 'width', '600')
+Config.set('graphics', 'height', '200')
 
 
 class BoxLayoutDemo(App):

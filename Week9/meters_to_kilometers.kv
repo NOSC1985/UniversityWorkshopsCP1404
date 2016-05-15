@@ -1,0 +1,34 @@
+FloatLayout:
+    TextInput:
+        text: ''
+        id: user_input
+        size: 25, 5
+        pos: 0, 10
+
+    Button:
+        text: 'Up'
+        id: up_button
+        size: 5, 2.5
+        pos: 25, 12.5
+        on_press: app.handle_up()
+
+    Button:
+        text: 'Down'
+        id: down_button
+        size: 5, 2.5
+        pos: 2.5, 10
+        on_press: app.handle_down()
+
+    Button:
+        text: 'Convert m to km'
+        id: conversion_button
+        size: 30, 5
+        pos: 0, 5
+        on_press: app.handle_conversion()
+
+    Label:
+        text: '0.00 km'
+        id: output_screen
+        color: (1, 1, 0 ,1)
+        size: 30, 5
+        pos: 0, 0
