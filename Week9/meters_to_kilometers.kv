@@ -1,34 +1,40 @@
 FloatLayout:
     TextInput:
-        text: ''
         id: user_input
-        size: 25, 5
-        pos: 0, 10
+        size_hint: None, None
+        size: 250, 50
+        pos: 0, 100
+        text: ''
 
     Button:
-        text: 'Up'
         id: up_button
-        size: 5, 2.5
-        pos: 25, 12.5
+        size_hint: None, None
+        size: 50, 25
+        pos: 250, 125
+        text: 'Up'
         on_press: app.handle_up()
 
     Button:
-        text: 'Down'
         id: down_button
-        size: 5, 2.5
-        pos: 2.5, 10
+        size_hint: None, None
+        size: 50, 25
+        pos: 250, 100
+        text: 'Down'
         on_press: app.handle_down()
 
     Button:
-        text: 'Convert m to km'
         id: conversion_button
-        size: 30, 5
-        pos: 0, 5
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 50
+        text: 'Convert m to km'
         on_press: app.handle_conversion()
 
     Label:
-        text: '0.00 km'
         id: output_screen
-        color: (1, 1, 0 ,1)
-        size: 30, 5
+        size_hint: None, None
+        size: 300, 50
         pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
