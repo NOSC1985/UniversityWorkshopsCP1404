@@ -1,13 +1,9 @@
-from kivy.app import App
-from kivy.lang import Builder
-from kivy.config import Config
-Config.set('graphics', 'width', '1000')
-Config.set('graphics', 'height', '1000')
+from random import *
 
-class BoxLayoutDemo(App):
-    def build(self):
-        self.title = "Test"
-        self.root = Builder.load_file('Test.kv')
-        return self.root
+float_number = random()
+whole_number = randint(0, 100)
+number = float_number + whole_number
+if number > 100:
+    number = 100
 
-BoxLayoutDemo().run()
+

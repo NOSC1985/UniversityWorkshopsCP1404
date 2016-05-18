@@ -42,8 +42,9 @@ New Methods
 -start_fare()
     resets the values of current_fare_distance
 """
-__Author__ = "Original Author: CP1404 Faculty\nModified by: Nicholas Stanton-Cook"
 from random import random, randint
+__Author__ = "Original Author: CP1404 Faculty\nModified by: Nicholas Stanton-Cook"
+
 
 class Car:
     def __init__(self, fuel=0, name=""):
@@ -84,12 +85,10 @@ class Car:
 
 
 class Taxi(Car):
-    PRICE_PER_KM = 1.20
-
-    def __init__(self, fuel, name):
+    def __init__(self, name, fuel, price_per_km):
         """ initialise a Taxi instance, based on parent class Car """
-        super().__init__(fuel, name)
-        self.price_per_km = Taxi.PRICE_PER_KM
+        super().__init__(name, fuel)
+        self.price_per_km = price_per_km
         self.current_fare_distance = 0
 
     def __str__(self):
@@ -126,3 +125,4 @@ class UnreliableCar(Car):
         else:
             distance_driven = super().drive(distance)
         return distance_driven
+
