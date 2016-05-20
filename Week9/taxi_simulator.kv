@@ -2,72 +2,65 @@ FloatLayout:
     TextInput:
         id: distance_to_drive_input
         size_hint: None, None
-        size: 250, 50
-        pos: 0, 100
-        text: ''
+        size: 150, 75
+        pos: 200, 0
+        text: ' '
 
     Button:
         id: taxi_one_button
         size_hint: None, None
-        size: 50, 25
-        pos: 250, 125
-        text: 'Up'
-        on_press: app.handle_up()
+        size: 200, 100
+        pos: 0, 450
+        text: 'TAXI 1'
+        on_press: app.handle_taxi_one_button()
 
     Button:
         id: taxi_two_button
         size_hint: None, None
-        size: 50, 25
-        pos: 250, 100
-        text: 'Down'
-        on_press: app.handle_down()
+        size: 200, 100
+        pos: 0, 350
+        text: 'TAXI 2'
+        on_press: app.handle_taxi_two_button()
 
     Button:
         id: taxi_three_button
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 50
-        text: 'Convert m to km'
-        on_press: app.handle_conversion()
+        size: 200, 100
+        pos: 0, 250
+        text: 'TAXI 3'
+        on_press: app.handle_taxi_three_button()
 
     Button:
         id: taxi_four_button
         size_hint: None, None
-        size: 50, 25
-        pos: 250, 100
-        text: 'Down'
-        on_press: app.handle_down()
+        size: 200, 100
+        pos: 0, 150
+        text: 'TAXI 4'
+        on_press: app.handle_taxi_four_button()
 
     Button:
         id: start_to_drive_button
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 50
-        text: 'Convert m to km'
-        on_press: app.handle_conversion()
+        size: 140, 115
+        pos: 355, 5
+        text: 'DRIVE'
+        on_press: app.handle_start_to_drive_button()
 
-    Label:
-        id: output_screen
-        size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
-        color: (1, 1, 0 ,1)
 
     Label:
         id: available_taxis_title
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 200, 50
+        pos: 0, 550
+        text: 'AVAILABLE TAXIS'
         color: (1, 1, 0 ,1)
 
     Label:
         id: taxi_simulator_title
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 600, 50
+        pos: 200, 550
+        text: 'TAXI SIMULATOR'
         color: (1, 1, 0 ,1)
 
 
@@ -75,65 +68,65 @@ FloatLayout:
     Label:
         id: fuel_title_taxi_one
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 150, 50
+        pos: 200, 500
+        text: 'Available Fuel'
         color: (1, 1, 0 ,1)
 
     Label:
         id: fuel_read_taxi_one
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 150, 50
+        pos: 200, 450
+        text: '0.00 L'
         color: (1, 1, 0 ,1)
 
     Label:
         id: fuel_title_taxi_two
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 150, 50
+        pos: 200, 400
+        text: 'Available Fuel'
         color: (1, 1, 0 ,1)
 
     Label:
         id: fuel_read_taxi_two
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 150, 50
+        pos: 200, 350
+        text: '0.00 L'
         color: (1, 1, 0 ,1)
 
     Label:
         id: fuel_title_taxi_three
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 150, 50
+        pos: 200, 300
+        text: 'Available Fuel'
         color: (1, 1, 0 ,1)
 
     Label:
         id: fuel_read_taxi_three
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 150, 50
+        pos: 200, 250
+        text: '0.00 L'
         color: (1, 1, 0 ,1)
 
     Label:
         id: fuel_title_taxi_four
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 150, 50
+        pos: 200, 200
+        text: 'Available Fuel'
         color: (1, 1, 0 ,1)
 
     Label:
         id: fuel_read_taxi_four
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 150, 50
+        pos: 200, 150
+        text: '0.00 L'
         color: (1, 1, 0 ,1)
 
 
@@ -141,107 +134,280 @@ FloatLayout:
     Label:
         id: odometer_title_taxi_one
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 150, 50
+        pos: 350, 500
+        text: 'Odometer'
         color: (1, 1, 0 ,1)
 
     Label:
         id: odometer_read_taxi_one
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
+        size: 150, 50
+        pos: 350, 450
         text: '0.00 km'
         color: (1, 1, 0 ,1)
 
     Label:
         id: odometer_title_taxi_two
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 150, 50
+        pos: 350, 400
+        text: 'Odometer'
         color: (1, 1, 0 ,1)
 
     Label:
         id: odometer_read_taxi_two
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
+        size: 150, 50
+        pos: 350, 350
         text: '0.00 km'
         color: (1, 1, 0 ,1)
 
     Label:
         id: odometer_title_taxi_three
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 150, 50
+        pos: 350, 300
+        text: 'Odometer'
         color: (1, 1, 0 ,1)
 
     Label:
         id: odometer_read_taxi_three
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
+        size: 150, 50
+        pos: 350, 250
         text: '0.00 km'
         color: (1, 1, 0 ,1)
 
     Label:
         id: odometer_title_taxi_four
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 150, 50
+        pos: 350, 200
+        text: 'Odometer'
         color: (1, 1, 0 ,1)
 
     Label:
         id: odometer_read_taxi_four
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
+        size: 150, 50
+        pos: 350, 150
         text: '0.00 km'
         color: (1, 1, 0 ,1)
 
 
 
     Label:
-        id: output_screen
+        id: price_per_km_title_taxi_one
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
+        size: 150, 50
+        pos: 500, 500
+        text: 'Price / Km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: price_per_km_read_taxi_one
+        size_hint: None, None
+        size: 150, 50
+        pos: 500, 450
+        text: '$0.00'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: price_per_km_title_taxi_two
+        size_hint: None, None
+        size: 150, 50
+        pos: 500, 400
+        text: 'Price / Km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: price_per_km_read_taxi_two
+        size_hint: None, None
+        size: 150, 50
+        pos: 500, 3500
+        text: '$0.00'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: price_per_km_title_taxi_three
+        size_hint: None, None
+        size: 150, 50
+        pos: 500, 300
+        text: 'Price / Km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: price_per_km_read_taxi_three
+        size_hint: None, None
+        size: 150, 50
+        pos: 500, 2500
+        text: '$0.00'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: price_per_km_title_taxi_four
+        size_hint: None, None
+        size: 150, 50
+        pos: 500, 200
+        text: 'Price / Km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: price_per_km_read_taxi_four
+        size_hint: None, None
+        size: 150, 50
+        pos: 500, 150
+        text: '$0.00'
+        color: (1, 1, 0 ,1)
+
+
+
+    Label:
+        id: distance_traveled_title_taxi_one
+        size_hint: None, None
+        size: 150, 50
+        pos: 650, 500
+        text: 'Distance Traveled'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: distance_traveled_read_taxi_one
+        size_hint: None, None
+        size: 150, 50
+        pos: 650, 450
         text: '0.00 km'
         color: (1, 1, 0 ,1)
 
     Label:
-        id: output_screen
+        id: distance_traveled_title_taxi_two
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
+        size: 150, 50
+        pos: 650, 400
+        text: 'Distance Traveled'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: distance_traveled_read_taxi_two
+        size_hint: None, None
+        size: 150, 50
+        pos: 650, 350
         text: '0.00 km'
         color: (1, 1, 0 ,1)
 
     Label:
-        id: output_screen
+        id: distance_traveled_title_taxi_three
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
+        size: 150, 50
+        pos: 650, 300
+        text: 'Distance Traveled'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: distance_traveled_read_taxi_three
+        size_hint: None, None
+        size: 150, 50
+        pos: 650, 250
         text: '0.00 km'
         color: (1, 1, 0 ,1)
 
     Label:
-        id: output_screen
+        id: distance_traveled_title_taxi_four
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
-        text: '0.00 km'
+        size: 150, 50
+        pos: 650, 200
+        text: 'Distance Traveled'
         color: (1, 1, 0 ,1)
 
     Label:
-        id: output_screen
+        id: distance_traveled_read_taxi_four
         size_hint: None, None
-        size: 300, 50
-        pos: 0, 0
+        size: 150, 50
+        pos: 650, 150
         text: '0.00 km'
         color: (1, 1, 0 ,1)
 
 
+
+    Label:
+        id: spacing_bar
+        size_hint: None, None
+        size: 25, 800
+        pos: 0, 125
+        text: ''
+        color: (1, 1, 0 ,1)
+
+
+
+    Label:
+        id: currently_selected_taxi_title
+        size_hint: None, None
+        size: 200, 50
+        pos: 0, 75
+        text: 'Current Taxi'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: currently_selected_taxi_read
+        size_hint: None, None
+        size: 150, 75
+        pos: 0, 0
+        text: ' '
+        color: (1, 1, 0 ,1)
+
+
+
+    Label:
+        id: distance_to_drive_title
+        size_hint: None, None
+        size: 150, 50
+        pos: 200, 75
+        text: 'Distance To Drive'
+        color: (1, 1, 0 ,1)
+
+
+
+
+    Label:
+        id: start_to_drive_button_backing
+        size_hint: None, None
+        size: 150, 125
+        pos: 350, 0
+        text: ' '
+        color: (1, 1, 0 ,1)
+
+
+
+    Label:
+        id: cost_of_trip_title
+        size_hint: None, None
+        size: 150, 50
+        pos: 500, 75
+        text: 'Cost of Trip'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: cost_of_trip_read
+        size_hint: None, None
+        size: 150, 75
+        pos: 500, 0
+        text: '$0.00'
+        color: (1, 1, 0 ,1)
+
+
+
+    Label:
+        id: total_cost_so_far_title
+        size_hint: None, None
+        size: 150, 50
+        pos: 650, 75
+        text: 'Total Bill'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: total_cost_so_far_read
+        size_hint: None, None
+        size: 150, 75
+        pos: 650, 0
+        text: '$0.00'
+        color: (1, 1, 0 ,1)
