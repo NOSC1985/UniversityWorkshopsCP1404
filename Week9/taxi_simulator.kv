@@ -1,0 +1,247 @@
+FloatLayout:
+    TextInput:
+        id: distance_to_drive_input
+        size_hint: None, None
+        size: 250, 50
+        pos: 0, 100
+        text: ''
+
+    Button:
+        id: taxi_one_button
+        size_hint: None, None
+        size: 50, 25
+        pos: 250, 125
+        text: 'Up'
+        on_press: app.handle_up()
+
+    Button:
+        id: taxi_two_button
+        size_hint: None, None
+        size: 50, 25
+        pos: 250, 100
+        text: 'Down'
+        on_press: app.handle_down()
+
+    Button:
+        id: taxi_three_button
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 50
+        text: 'Convert m to km'
+        on_press: app.handle_conversion()
+
+    Button:
+        id: taxi_four_button
+        size_hint: None, None
+        size: 50, 25
+        pos: 250, 100
+        text: 'Down'
+        on_press: app.handle_down()
+
+    Button:
+        id: start_to_drive_button
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 50
+        text: 'Convert m to km'
+        on_press: app.handle_conversion()
+
+    Label:
+        id: output_screen
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: available_taxis_title
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: taxi_simulator_title
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+
+
+    Label:
+        id: fuel_title_taxi_one
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: fuel_read_taxi_one
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: fuel_title_taxi_two
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: fuel_read_taxi_two
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: fuel_title_taxi_three
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: fuel_read_taxi_three
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: fuel_title_taxi_four
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: fuel_read_taxi_four
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+
+
+    Label:
+        id: odometer_title_taxi_one
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: odometer_read_taxi_one
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: odometer_title_taxi_two
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: odometer_read_taxi_two
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: odometer_title_taxi_three
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: odometer_read_taxi_three
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: odometer_title_taxi_four
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: odometer_read_taxi_four
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+
+
+    Label:
+        id: output_screen
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: output_screen
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: output_screen
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: output_screen
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+    Label:
+        id: output_screen
+        size_hint: None, None
+        size: 300, 50
+        pos: 0, 0
+        text: '0.00 km'
+        color: (1, 1, 0 ,1)
+
+
