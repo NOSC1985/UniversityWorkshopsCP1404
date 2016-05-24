@@ -11,6 +11,9 @@ Also included are pop up windows for inputs when  Adding new items
 
 git hub repository: https://github.com/NOSC1985/UniversityWorkshopsCP1404/tree/
 5b7507b08c9e89c63611b6c88dddfb8c3c951371/Assignment2
+
+Referenced material and studied various files from the Kivy Demos Provided
+https://github.com/CP1404/KivyDemos
 """
 from kivy.app import App
 from kivy.lang import Builder
@@ -114,34 +117,25 @@ class ItemsForHireApp(App):
 
     def press_list_items(self):
         """
-        Handler for pressing the add button
+        Handler for pressing the list_items button
         :return: None
         """
-        self.status_text = "Enter details for new phonebook entry"
-        # this opens the popup
-        self.root.ids.popup.open()
 
     def press_hire_item(self):
         """
-        Handler for pressing the add button
+        Handler for pressing the hire_item button
         :return: None
         """
-        self.status_text = "Enter details for new phonebook entry"
-        # this opens the popup
-        self.root.ids.popup_for_new_item.open()
 
     def press_return_item(self):
         """
-        Handler for pressing the add button
+        Handler for pressing the return_item button
         :return: None
         """
-        self.status_text = "Enter details for new phonebook entry"
-        # this opens the popup
-        self.root.ids.popup.open()
 
     def press_new_item(self):
         """
-        Handler for pressing the add button
+        Handler for pressing the add_new_item button
         :return: None
         """
         self.status_text = "Enter details for the new Item"
@@ -150,39 +144,16 @@ class ItemsForHireApp(App):
 
     def press_confirm_item(self, added_name, added_number):
         """
-        Handler for pressing the save button in the add entry popup - save a new entry to memory
-        :param added_name: name text input (from popup GUI)
-        :param added_number: phone number text input (string)
+        Handler for pressing the confirm button
         :return: None
         """
-        self.items_dict[added_name] = added_number
-        # change the number of columns based on the number of entries (no more than 5 rows of entries)
-        self.root.ids.entriesBox.cols = len(self.items_dict) // 5 + 1
-        # add button for new entry (same as in create_entry_buttons())
-        temp_button = Button(text=added_name)
-        temp_button.bind(on_release=self.press_entry)
-        self.root.ids.entriesBox.add_widget(temp_button)
-        # close popup
-        self.root.ids.popup.dismiss()
-        self.clear_fields()
+
 
     def press_save(self, new_item_name, new_item_description, new_item_price):
         """
-        Handler for pressing the save button in the add entry popup - save a new entry to memory
-        :param new_item_name: name text input (from popup GUI)
-        :param added_number: phone number text input (string)
+        Handler for pressing the save button
         :return: None
         """
-        self.items_dict[new_item_name] = [new_item_description, new_item_price, "Available"]
-        # change the number of columns based on the number of entries (no more than 5 rows of entries)
-        self.root.ids.entriesBox.cols = len(self.items_dict) // 5 + 1
-        # add button for new entry (same as in create_entry_buttons())
-        temp_button = Button(text=new_item_name)
-        temp_button.bind(on_release=self.press_entry)
-        self.root.ids.entriesBox.add_widget(temp_button)
-        # close popup
-        self.root.ids.popup_for_new_item.dismiss()
-        self.clear_fields()
 
     def clear_fields(self):
         """
