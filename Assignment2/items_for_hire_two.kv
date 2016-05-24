@@ -1,0 +1,108 @@
+BoxLayout:
+    id: mainBox
+    Popup:
+        id: popup_for_new_item
+        # uncomment the line below for a popup that's not full screen/window
+        size_hint: (.7, .7)
+        title: "Add New Item"
+        on_parent:
+            # Make popup disappear immediately
+            if self.parent == mainBox: self.parent.remove_widget(self)
+        BoxLayout:
+            # layout for input fields and action buttons
+            id: inputs
+            orientation: 'vertical'
+            Label:
+                text: 'New Item Name: '
+                size_hint_y: None
+                height: '48dp'
+            TextInput:
+                id: new_item_name
+                value: ''
+                size_hint_y: None
+                height: '48dp'
+                # the next two lines make it so that pressing Tab moves the cursor
+                # to the next input field instead of entering the Tab character
+                multiline: False
+                write_tab: False
+            Label:
+                text: 'New Item Description: '
+                size_hint_y: None
+                height: '48dp'
+            TextInput:
+                id: new_item_description
+                value: ''
+                size_hint_y: None
+                height: '48dp'
+                # the next two lines make it so that pressing Tab moves the cursor
+                # to the next input field instead of entering the Tab character
+                multiline: False
+                write_tab: False
+            Label:
+                text: 'New Item Price: '
+                size_hint_y: None
+                height: '48dp'
+            TextInput:
+                id: new_item_price
+                value: ''
+                size_hint_y: None
+                height: '48dp'
+                # the next two lines make it so that pressing Tab moves the cursor
+                # to the next input field instead of entering the Tab character
+                multiline: False
+                write_tab: False
+            Button:
+                text: 'Save Entry'
+                on_release: app.press_save(new_item_name.text, new_item_description.text, new_item_price.text)
+            Button:
+                text: 'Cancel'
+                on_release: app.press_clear()
+            Label:
+                # this is a different Label than the main GUI screen,
+                # but uses the same string data
+                text: app.status_text
+
+    BoxLayout:
+
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+
+            GridLayout:
+                # this layout is populated with (button) widgets in app code
+                id: entriesBox
+                cols: 1
+                orientation: 'vertical'
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_x: 1
+                size_hint_y: 0.2
+                Button:
+                    id: list_items_button
+                    text: 'List all Items'
+                    on_release: app.press_list_items()
+                Button:
+                    id: hire_item_button
+                    text: 'Hire an Item'
+                    on_release: app.press_hire_item()
+                Button:
+                    id: return_item_button
+                    text: 'Return an Item'
+                    on_release: app.press_return_item()
+                Button:
+                    id: new_item_button
+                    text: 'Add new Item'
+                    on_release: app.press_new_item()
+                Button:
+                    id: confirm_button
+                    text: 'Confirm'
+                    on_release: app.press_confirm_item()
+                Button:
+                    id: clear_button
+                    text: 'Clear'
+                    on_release: app.press_clear()
+        Label:
+            id: statusLabel
+            size_hint_y: 0.1
+            text: app.status_text
