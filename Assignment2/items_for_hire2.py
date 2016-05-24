@@ -149,7 +149,7 @@ class ItemsForHireApp(App):
         """
 
 
-    def press_save(self, new_item_name, new_item_description, new_item_price):
+    def press_save(self):
         """
         Handler for pressing the save button
         :return: None
