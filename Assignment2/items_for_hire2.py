@@ -6,7 +6,7 @@ Description: This program allows a user to check and manage a list of items for 
 C.S.V formatted text file. The user is presented with a GUI allowing them choices to diplay all items,
 hire out an item, return an item, add a new item and confirm their choice.
 
-Also included are pop up windows for inputs when Hiring, Returning or Adding new items
+Also included are pop up windows for inputs when  Adding new items
 (This will use an error checking to ensure valid inputs)
 
 git hub repository: https://github.com/NOSC1985/UniversityWorkshopsCP1404/tree/
@@ -76,7 +76,7 @@ class ItemsForHireApp(App):
         for name in self.items_dict:
             temp_button = Button(text=name)
             temp_button.bind(on_release=self.press_entry)
-            temp_button.bind(on_press=self.press_clear)
+            temp_button.bind(on_press=self.clear_all)
             self.root.ids.entriesBox.add_widget(temp_button)
 
     def press_entry(self, instance):
@@ -92,7 +92,17 @@ class ItemsForHireApp(App):
         self.status_text = "'{}': {} Price: ${}".format(name, description, price)
         instance.state = 'down'
 
-    def press_clear(self, instance):
+    def press_clear(self):
+        """
+        Clear any buttons that have been selected (visually) and reset status text
+        :return: None
+        """
+        # use the .children attribute to access all widgets that are "in" another widget
+        for instance in self.root.ids.entriesBox.children:
+            instance.state = 'normal'
+        self.status_text = ""
+
+    def clear_all(self, instance):
         """
         Clear any buttons that have been selected (visually) and reset status text
         :return: None
@@ -189,7 +199,7 @@ class ItemsForHireApp(App):
         Handler for pressing cancel in the add entry popup
         :return: None
         """
-        self.root.ids.popup.dismiss()
+        self.root.ids.popup_for_new_item.dismiss()
         self.clear_fields()
         self.status_text = ""
 
