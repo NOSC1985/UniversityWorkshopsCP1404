@@ -181,7 +181,7 @@ class ItemsForHireApp(App):
     def press_confirm_item(self, added_name, added_number):
         """
         Handler for pressing the confirm button
-        :return: None
+
         """
 
 
