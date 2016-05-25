@@ -96,6 +96,7 @@ class ItemsForHireApp(App):
                 temp_button.background_color = (0, 1, 0, 1)
             elif current_item[2] == 'out':
                 temp_button.background_color = (1, 0, 0, 1)
+            self.root.ids.entriesBox.cols = len(self.items_dict) // 5 + 1
 
     def press_entry(self, instance):
         """
@@ -124,7 +125,6 @@ class ItemsForHireApp(App):
         Clear any buttons that have been selected (visually) and reset status text
         :return: None
         """
-        # use the .children attribute to access all widgets that are "in" another widget
         for instance in self.root.ids.entriesBox.children:
             instance.state = 'normal'
         self.status_text = ""
@@ -142,11 +142,16 @@ class ItemsForHireApp(App):
         :return: None
         """
 
+        current_item = self.status_text
+        self.status_text = "Press Confirm to Hire: {}".format(current_item)
+
     def press_return_item(self):
         """
         Handler for pressing the return_item button
         :return: None
         """
+        current_item = self.status_text
+        self.status_text = "Press Confirm to Return: {}".format(current_item)
 
     def press_new_item(self):
         """
@@ -154,7 +159,6 @@ class ItemsForHireApp(App):
         :return: None
         """
         self.status_text = "Enter details for the new Item"
-        # this opens the popup
         self.root.ids.popup_for_new_item.open()
 
     def press_save_new_item(self, new_item_name, new_item_description, new_item_price):
@@ -166,14 +170,11 @@ class ItemsForHireApp(App):
         """
         new_item_price = new_item_price.strip('$')
         self.items_dict[new_item_name] = [new_item_description, new_item_price, "in"]
-        # change the number of columns based on the number of entries (no more than 5 rows of entries)
         self.root.ids.entriesBox.cols = len(self.items_dict) // 5 + 1
-        # add button for new entry (same as in create_entry_buttons())
         temp_button = Button(text=new_item_name)
         temp_button.bind(on_release=self.press_entry)
         self.root.ids.entriesBox.add_widget(temp_button)
-
-        # close popup
+        temp_button.background_color = (0, 1, 0, 1)
         self.root.ids.popup_for_new_item.dismiss()
         self.clear_fields()
 
@@ -182,6 +183,7 @@ class ItemsForHireApp(App):
         Handler for pressing the confirm button
         :return: None
         """
+
 
     def press_save(self):
         """
