@@ -49,9 +49,7 @@ def convert_item_dictionary_to_list(item_dictionary):
         item_name = [item]
         item_description = item_dictionary[item]
         current_item = [item_name + item_description]
-        print(current_item)
         list_of_items = list_of_items + current_item
-        print(list_of_items)
 
     return list_of_items
 
@@ -162,6 +160,7 @@ class ItemsForHireApp(App):
         :param added_number: phone number text input (string)
         :return: None
         """
+        new_item_price = new_item_price.strip('$')
         self.items_dict[new_item_name] = [new_item_description, new_item_price, "in"]
         # change the number of columns based on the number of entries (no more than 5 rows of entries)
         self.root.ids.entriesBox.cols = len(self.items_dict) // 5 + 1
@@ -186,8 +185,6 @@ class ItemsForHireApp(App):
         :return: None
         """
         final_list = convert_item_dictionary_to_list(self.items_dict)
-        print(items_lists)
-        print(final_list)
         save_file_data = format_csv_file_data_to_save(final_list)
         save_file = open("{}".format(FILE_NAME), mode='w')
         save_file.write(save_file_data)
