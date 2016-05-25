@@ -69,7 +69,6 @@ class ItemsForHireApp(App):
         Construct main app
         """
         super(ItemsForHireApp, self).__init__(**kwargs)
-        # basic data example - dictionary of names: phone numbers
         self.items_dict = convert_item_list_to_dictionary(items_lists)
 
     def build(self):
@@ -92,6 +91,11 @@ class ItemsForHireApp(App):
             temp_button.bind(on_release=self.press_entry)
             temp_button.bind(on_press=self.clear_all)
             self.root.ids.entriesBox.add_widget(temp_button)
+            current_item = self.items_dict[name]
+            if current_item[2] == 'in':
+                temp_button.background_color = (0, 1, 0, 1)
+            elif current_item[2] == 'out':
+                temp_button.background_color = (1, 0, 0, 1)
 
     def press_entry(self, instance):
         """
@@ -131,6 +135,7 @@ class ItemsForHireApp(App):
         Handler for pressing the list_items button
         :return: None
         """
+        App.create_entry_buttons(self)
 
     def press_hire_item(self):
         """
