@@ -53,7 +53,7 @@ BoxLayout:
                 write_tab: False
             Button:
                 text: 'Save Entry'
-                on_release: app.press_save(new_item_name.text, new_item_description.text, new_item_price.text)
+                on_release: app.press_save_new_item(new_item_name.text, new_item_description.text, new_item_price.text)
             Button:
                 text: 'Cancel'
                 on_release: app.press_cancel()
@@ -115,5 +115,5 @@ BoxLayout:
                 id: save_button
                 size_hint_y: 1
                 size_hint_x: 0.2
-                text: 'Save and Quit'
+                text: 'Save Items'
                 on_release: app.press_save()

@@ -39,8 +39,21 @@ def convert_item_list_to_dictionary(list_of_items):
         item_details = [item[1], item[2], item[3]]
         dictionary_of_items[item_name] = item_details
 
-    print(dictionary_of_items)
     return dictionary_of_items
+
+
+def convert_item_dictionary_to_list(item_dictionary):
+    list_of_items = []
+    item_names = item_dictionary.keys()
+    for item in item_names:
+        item_name = [item]
+        item_description = item_dictionary[item]
+        current_item = [item_name + item_description]
+        print(current_item)
+        list_of_items = list_of_items + current_item
+        print(list_of_items)
+
+    return list_of_items
 
 
 class ItemsForHireApp(App):
@@ -142,18 +155,45 @@ class ItemsForHireApp(App):
         # this opens the popup
         self.root.ids.popup_for_new_item.open()
 
+    def press_save_new_item(self, new_item_name, new_item_description, new_item_price):
+        """
+        Handler for pressing the save button in the add entry popup - save a new entry to memory
+        :param new_item_name: name text input (from popup GUI)
+        :param added_number: phone number text input (string)
+        :return: None
+        """
+        self.items_dict[new_item_name] = [new_item_description, new_item_price, "in"]
+        # change the number of columns based on the number of entries (no more than 5 rows of entries)
+        self.root.ids.entriesBox.cols = len(self.items_dict) // 5 + 1
+        # add button for new entry (same as in create_entry_buttons())
+        temp_button = Button(text=new_item_name)
+        temp_button.bind(on_release=self.press_entry)
+        self.root.ids.entriesBox.add_widget(temp_button)
+
+        # close popup
+        self.root.ids.popup_for_new_item.dismiss()
+        self.clear_fields()
+
     def press_confirm_item(self, added_name, added_number):
         """
         Handler for pressing the confirm button
         :return: None
         """
 
-
     def press_save(self):
         """
         Handler for pressing the save button
         :return: None
         """
+        final_list = convert_item_dictionary_to_list(self.items_dict)
+        print(items_lists)
+        print(final_list)
+        save_file_data = format_csv_file_data_to_save(final_list)
+        save_file = open("{}".format(FILE_NAME), mode='w')
+        save_file.write(save_file_data)
+        save_file.close()
+        final_item_count = len(final_list)
+        self.status_text = "{} items saved to {}\nHave a nice day :)".format(final_item_count, FILE_NAME)
 
     def clear_fields(self):
         """

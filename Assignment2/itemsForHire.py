@@ -188,7 +188,7 @@ def format_csv_file_data_to_save(finalized_list):
     string_to_save_to_file = ""
     first_loop_counter = 0
     for list in finalized_list:
-        finalized_list[first_loop_counter] = ("{},{},{},{}\n".format(list[0],list[1],list[2],list[3]))
+        finalized_list[first_loop_counter] = ("{},{},{},{}\n".format(list[0], list[1], list[2], list[3]))
         first_loop_counter += 1
 
     second_loop_counter = 0
