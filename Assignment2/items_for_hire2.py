@@ -173,6 +173,7 @@ class ItemsForHireApp(App):
         self.items_to_display_string = ""
         self.returning_list = []
 
+
     def clear_all(self, instance):
         """
         Clear any buttons that have been selected (visually) and reset status text
@@ -187,7 +188,7 @@ class ItemsForHireApp(App):
         Handler for pressing the list_items button
         :return: None
         """
-        App.press_clear(self)
+        self.press_clear()
         self.mode = 0
 
     def press_hire_item(self):
@@ -233,11 +234,39 @@ class ItemsForHireApp(App):
         self.root.ids.popup_for_new_item.dismiss()
         self.clear_fields()
 
-    def press_confirm_item(self, added_name, added_number):
+    def press_confirm_item(self):
         """
         Handler for pressing the confirm button
 
         """
+        if self.mode == 1:
+            for i in self.items_dict:
+                check_current_item = self.items_dict[i]
+                if i in self.hiring_list:
+                    check_current_item[2] = 'out'
+                    self.items_dict[i] = check_current_item
+
+            for instance in self.root.ids.entriesBox.children:
+                print(instance.text)
+                if instance.text in self.hiring_list:
+                    instance.background_color = (1, 0, 0, 1)
+
+
+
+        elif self.mode == 2:
+            for i in self.items_dict:
+                check_current_item = self.items_dict[i]
+                if i in self.returning_list:
+                    check_current_item[2] = 'in'
+                    self.items_dict[i] = check_current_item
+
+            for instance in self.root.ids.entriesBox.children:
+                print(instance.text)
+                if instance.text in self.returning_list_list:
+                    instance.background_color = (0, 1, 0, 1)
+
+        self.mode = 0
+        self.press_clear()
 
     def press_save(self):
         """
