@@ -20,7 +20,6 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.button import Button
 from kivy.properties import StringProperty
-
 from itemsForHire import format_csv_file_data_for_use
 from itemsForHire import format_csv_file_data_to_save
 
@@ -32,30 +31,28 @@ import_file = open("{}".format(FILE_NAME), mode='r')
 items_lists = format_csv_file_data_for_use(import_file)
 import_file.close()
 
+
 list_of_item_objects = []
 counter = 0
 for item in items_lists:
-    print(item)
     current_item_name = item[0]
-    print(current_item_name)
     current_item_description = item[1]
-    print(current_item_description)
     current_item_price = item[2]
-    print(current_item_price)
     current_item_availability = item[3]
     current_item = Item(current_item_name, current_item_description, current_item_price, current_item_availability)
     list_of_item_objects.append(current_item)
     counter += 1
 
-for item in list_of_item_objects:
-    item_to_check = item.name
-    print(item_to_check)
+#for item in list_of_item_objects:
+    #item_to_check = item.name
+    #print(item_to_check)
+
 
 def convert_item_list_to_dictionary(list_of_items):
     dictionary_of_items = {}
-    for item in list_of_items:
-        item_name = item[0]
-        item_details = [item[1], item[2], item[3]]
+    for items in list_of_items:
+        item_name = items[0]
+        item_details = [items[1], items[2], items[3]]
         dictionary_of_items[item_name] = item_details
 
     return dictionary_of_items
@@ -64,11 +61,11 @@ def convert_item_list_to_dictionary(list_of_items):
 def convert_item_dictionary_to_list(item_dictionary):
     list_of_items = []
     item_names = item_dictionary.keys()
-    for item in item_names:
-        item_name = [item]
-        item_description = item_dictionary[item]
-        current_item = [item_name + item_description]
-        list_of_items = list_of_items + current_item
+    for each_item in item_names:
+        item_name = [each_item]
+        item_description = item_dictionary[each_item]
+        working_item = [item_name + item_description]
+        list_of_items = list_of_items + working_item
 
     return list_of_items
 
@@ -76,7 +73,6 @@ def convert_item_dictionary_to_list(item_dictionary):
 class ItemsForHireApp(App):
     """
     Program: ItemsForHire(App)
-
     This program controls the creation and function of all the GUI objects including the functionality of each
     button or text input.
     Includes Error checking for correct input format and type.
@@ -110,10 +106,10 @@ class ItemsForHireApp(App):
             temp_button.bind(on_release=self.press_entry)
             temp_button.bind(on_press=self.clear_all)
             self.root.ids.entriesBox.add_widget(temp_button)
-            current_item = self.items_dict[name]
-            if current_item[2] == 'in':
+            working_item = self.items_dict[name]
+            if working_item[2] == 'in':
                 temp_button.background_color = (0, 1, 0, 1)
-            elif current_item[2] == 'out':
+            elif working_item[2] == 'out':
                 temp_button.background_color = (1, 0, 0, 1)
             self.root.ids.entriesBox.cols = len(self.items_dict) // 5 + 1
 
@@ -145,7 +141,8 @@ class ItemsForHireApp(App):
         :return: None
         """
         for instance in self.root.ids.entriesBox.children:
-            instance.state = 'normal'
+            if instance.state == 'down':
+                instance.state = 'normal'
         self.status_text = ""
 
     def press_list_items(self):
@@ -153,24 +150,23 @@ class ItemsForHireApp(App):
         Handler for pressing the list_items button
         :return: None
         """
-        App.create_entry_buttons(self)
+        App.press_clear(self)
 
     def press_hire_item(self):
         """
         Handler for pressing the hire_item button
         :return: None
         """
-
-        current_item = self.status_text
-        self.status_text = "Press Confirm to Hire: {}".format(current_item)
+        working_item = self.status_text
+        self.status_text = "Press Confirm to Hire: {}".format(working_item)
 
     def press_return_item(self):
         """
         Handler for pressing the return_item button
         :return: None
         """
-        current_item = self.status_text
-        self.status_text = "Press Confirm to Return: {}".format(current_item)
+        working_item = self.status_text
+        self.status_text = "Press Confirm to Return: {}".format(working_item)
 
     def press_new_item(self):
         """
@@ -203,7 +199,6 @@ class ItemsForHireApp(App):
 
         """
 
-
     def press_save(self):
         """
         Handler for pressing the save button
@@ -215,7 +210,7 @@ class ItemsForHireApp(App):
         save_file.write(save_file_data)
         save_file.close()
         final_item_count = len(final_list)
-        self.status_text = "{} items saved to {}\nHave a nice day :)".format(final_item_count, FILE_NAME)
+        self.status_text = "{} items saved to {}".format(final_item_count, FILE_NAME)
 
     def clear_fields(self):
         """
