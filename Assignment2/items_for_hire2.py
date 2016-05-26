@@ -251,7 +251,8 @@ class ItemsForHireApp(App):
                 if instance.text in self.hiring_list:
                     instance.background_color = (1, 0, 0, 1)
 
-
+            final_price = float(self.total_hiring_price)
+            final_message = "{}\n Hired for: ${}".format(self.items_to_display_string, final_price)
 
         elif self.mode == 2:
             for i in self.items_dict:
@@ -262,11 +263,12 @@ class ItemsForHireApp(App):
 
             for instance in self.root.ids.entriesBox.children:
                 print(instance.text)
-                if instance.text in self.returning_list_list:
+                if instance.text in self.returning_list:
                     instance.background_color = (0, 1, 0, 1)
-
+            final_message = "{}\n returned".format(self.items_to_display_string)
         self.mode = 0
         self.press_clear()
+        self.status_text = "{}".format(final_message)
 
     def press_save(self):
         """
