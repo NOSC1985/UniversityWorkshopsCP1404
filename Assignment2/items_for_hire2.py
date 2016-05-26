@@ -15,6 +15,7 @@ git hub repository: https://github.com/NOSC1985/UniversityWorkshopsCP1404/tree/
 Referenced material and studied various files from the Kivy Demos Provided
 https://github.com/CP1404/KivyDemos
 """
+from Item import *
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.button import Button
@@ -31,6 +32,24 @@ import_file = open("{}".format(FILE_NAME), mode='r')
 items_lists = format_csv_file_data_for_use(import_file)
 import_file.close()
 
+list_of_item_objects = []
+counter = 0
+for item in items_lists:
+    print(item)
+    current_item_name = item[0]
+    print(current_item_name)
+    current_item_description = item[1]
+    print(current_item_description)
+    current_item_price = item[2]
+    print(current_item_price)
+    current_item_availability = item[3]
+    current_item = Item(current_item_name, current_item_description, current_item_price, current_item_availability)
+    list_of_item_objects.append(current_item)
+    counter += 1
+
+for item in list_of_item_objects:
+    item_to_check = item.name
+    print(item_to_check)
 
 def convert_item_list_to_dictionary(list_of_items):
     dictionary_of_items = {}
@@ -217,5 +236,17 @@ class ItemsForHireApp(App):
         self.clear_fields()
         self.status_text = ""
 
+    def on_stop(self):
+        """
+        Handler for pressing the save button
+        :return: None
+        """
+        final_list = convert_item_dictionary_to_list(self.items_dict)
+        save_file_data = format_csv_file_data_to_save(final_list)
+        save_file = open("{}".format(FILE_NAME), mode='w')
+        save_file.write(save_file_data)
+        save_file.close()
+        final_item_count = len(final_list)
+        self.status_text = "{} items saved to {}\nHave a nice day :)".format(final_item_count, FILE_NAME)
 
 ItemsForHireApp().run()
