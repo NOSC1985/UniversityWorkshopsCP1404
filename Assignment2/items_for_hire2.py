@@ -85,6 +85,11 @@ class ItemsForHireApp(App):
         """
         super(ItemsForHireApp, self).__init__(**kwargs)
         self.items_dict = convert_item_list_to_dictionary(items_lists)
+        self.mode = 0
+        self.hiring_list = []
+        self.total_hiring_price = 0
+        self.items_to_display_string = ""
+        self.returning_list = []
 
     def build(self):
         """
@@ -123,7 +128,36 @@ class ItemsForHireApp(App):
         details = self.items_dict[name]
         description = details[0]
         price = details[1]
-        self.status_text = "'{}': {} Price: ${}".format(name, description, price)
+        availability = details[2]
+
+        if self.mode == 0:
+            self.status_text = "'{}': {} \nPrice: ${}\nAvailability: {}".format(name, description, price, availability)
+
+        elif self.mode == 1:
+            if availability == 'in':
+                if name not in self.hiring_list:
+                    self.hiring_list.append(name)
+                    self.total_hiring_price += float(price)
+                self.items_to_display_string = ""
+                for items in self.hiring_list:
+                    self.items_to_display_string += "{}, ".format(items)
+
+                self.status_text = ""
+                self.status_text = "Items To Hire\n{}\nPrice: {}".format(self.items_to_display_string,
+                                                                         str(self.total_hiring_price))
+
+        elif self.mode == 2:
+            if availability == 'out':
+                if name not in self.returning_list:
+                    self.returning_list.append(name)
+
+                self.items_to_display_string = ""
+                for items in self.returning_list:
+                    self.items_to_display_string += "{}, ".format(items)
+
+                self.status_text = ""
+                self.status_text = "Items To Return\n{}".format(self.items_to_display_string)
+
         instance.state = 'down'
 
     def press_clear(self):
@@ -134,6 +168,10 @@ class ItemsForHireApp(App):
         for instance in self.root.ids.entriesBox.children:
             instance.state = 'normal'
         self.status_text = ""
+        self.hiring_list = []
+        self.total_hiring_price = 0
+        self.items_to_display_string = ""
+        self.returning_list = []
 
     def clear_all(self, instance):
         """
@@ -143,7 +181,6 @@ class ItemsForHireApp(App):
         for instance in self.root.ids.entriesBox.children:
             if instance.state == 'down':
                 instance.state = 'normal'
-        self.status_text = ""
 
     def press_list_items(self):
         """
@@ -151,22 +188,25 @@ class ItemsForHireApp(App):
         :return: None
         """
         App.press_clear(self)
+        self.mode = 0
 
     def press_hire_item(self):
         """
         Handler for pressing the hire_item button
         :return: None
         """
-        working_item = self.status_text
-        self.status_text = "Press Confirm to Hire: {}".format(working_item)
+        self.status_text = "Select Items to Hire Above\nPress 'Confirm' when ready to hire\n" \
+                           "Press 'Clear' to restart your selection"
+        self.mode = 1
 
     def press_return_item(self):
         """
         Handler for pressing the return_item button
         :return: None
         """
-        working_item = self.status_text
-        self.status_text = "Press Confirm to Return: {}".format(working_item)
+        self.status_text = "Select Items to Return Above\nPress 'Confirm' when ready to Return\n" \
+                           "Press 'Clear' to restart your selection"
+        self.mode = 2
 
     def press_new_item(self):
         """
