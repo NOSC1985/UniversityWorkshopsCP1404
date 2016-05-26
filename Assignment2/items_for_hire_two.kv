@@ -3,14 +3,11 @@ BoxLayout:
 
     Popup:
         id: popup_for_new_item
-        # uncomment the line below for a popup that's not full screen/window
         size_hint: (.7, .7)
         title: "Add New Item"
         on_parent:
-            # Make popup disappear immediately
             if self.parent == mainBox: self.parent.remove_widget(self)
         BoxLayout:
-            # layout for input fields and action buttons
             id: inputs
             orientation: 'vertical'
             Label:
@@ -22,8 +19,6 @@ BoxLayout:
                 value: ''
                 size_hint_y: None
                 height: '48dp'
-                # the next two lines make it so that pressing Tab moves the cursor
-                # to the next input field instead of entering the Tab character
                 multiline: False
                 write_tab: False
             Label:
@@ -35,8 +30,6 @@ BoxLayout:
                 value: ''
                 size_hint_y: None
                 height: '48dp'
-                # the next two lines make it so that pressing Tab moves the cursor
-                # to the next input field instead of entering the Tab character
                 multiline: False
                 write_tab: False
             Label:
@@ -48,8 +41,6 @@ BoxLayout:
                 value: ''
                 size_hint_y: None
                 height: '48dp'
-                # the next two lines make it so that pressing Tab moves the cursor
-                # to the next input field instead of entering the Tab character
                 multiline: False
                 write_tab: False
             Button:
@@ -59,8 +50,6 @@ BoxLayout:
                 text: 'Cancel'
                 on_release: app.press_cancel()
             Label:
-                # this is a different Label than the main GUI screen,
-                # but uses the same string data
                 text: app.status_text
 
     BoxLayout:
@@ -70,7 +59,6 @@ BoxLayout:
             orientation: 'vertical'
 
             GridLayout:
-                # this layout is populated with (button) widgets in app code
                 id: entriesBox
                 cols: 1
                 orientation: 'vertical'

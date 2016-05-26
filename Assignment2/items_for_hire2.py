@@ -3,7 +3,7 @@ Author: Nicholas Stanton-Cook
 Dates: 12/5/2016 -> 22/5/2016
 
 Description: This program allows a user to check and manage a list of items for sale, stored and retrieved from a
-C.S.V formatted text file. The user is presented with a GUI allowing them choices to diplay all items,
+C.S.V formatted text file. The user is presented with a GUI allowing them choices to check the status of all items,
 hire out an item, return an item, add a new item and confirm their choice.
 
 Also included are pop up windows for inputs when  Adding new items
@@ -31,7 +31,9 @@ import_file = open("{}".format(FILE_NAME), mode='r')
 items_lists = format_csv_file_data_for_use(import_file)
 import_file.close()
 
-
+"""
+making a list of Item objects which were not used in this program
+"""
 list_of_item_objects = []
 counter = 0
 for item in items_lists:
@@ -43,12 +45,13 @@ for item in items_lists:
     list_of_item_objects.append(current_item)
     counter += 1
 
-#for item in list_of_item_objects:
-    #item_to_check = item.name
-    #print(item_to_check)
-
 
 def convert_item_list_to_dictionary(list_of_items):
+    """
+    Function: convert_item_list_to_dictionary
+    :param list_of_items:
+    :return: dictionary_of_items
+    """
     dictionary_of_items = {}
     for items in list_of_items:
         item_name = items[0]
@@ -59,6 +62,11 @@ def convert_item_list_to_dictionary(list_of_items):
 
 
 def convert_item_dictionary_to_list(item_dictionary):
+    """
+    Function: convert_item_dictionary_to_list
+    :param item_dictionary:
+    :return: list_of_items
+    """
     list_of_items = []
     item_names = item_dictionary.keys()
     for each_item in item_names:
@@ -82,6 +90,13 @@ class ItemsForHireApp(App):
     def __init__(self, **kwargs):
         """
         Construct main app
+        Allocate the following properties
+        items_dict (allows the current set of items to be stored centrally and accessed by all functions)
+        mode (allows the program to detect if it is currently in List, Hire or Return Mode and act accordingly)
+        hiring_list (allows the list of names of items which have been selected to be stored and accessed centrally)
+        total_hiring_price (contains the current hiring price of the items currently selected)
+        items_to_display_string (contains the current constructed string of items to display to the screen)
+        returning_list (allows the list of names of items which have been selected to be stored and accessed centrally)
         """
         super(ItemsForHireApp, self).__init__(**kwargs)
         self.items_dict = convert_item_list_to_dictionary(items_lists)
@@ -106,6 +121,20 @@ class ItemsForHireApp(App):
         Create the entry buttons and add them to the GUI
         :return: None
         """
+        """
+        for each name in items_dict
+            create Button with text(current_name)
+            set Button to run press_entry function on release
+            set Button to run clear_all on press
+            generate a widget for the Button
+            find the current items data from items_dict
+            if working_item(availability) = 'in'
+                make Button colour Green
+            else if working_item(availability) = 'out'
+                make Button colour Red
+
+            make sure that the buttons separate into columns of maximum 5
+        """
         for name in self.items_dict:
             temp_button = Button(text=name)
             temp_button.bind(on_release=self.press_entry)
@@ -121,8 +150,35 @@ class ItemsForHireApp(App):
     def press_entry(self, instance):
         """
         Handler for pressing the currently stored item buttons
-        :param instance: the Kivy button instance
+        :param instance: Whichever button was pressed to activate this callback
         :return: None
+        """
+        """
+        get all details about the current buttons item from items_dict
+
+        if current program Mode = 0 (listing Items)
+            display only Items name and details to the status bar
+
+        else if current program Mode = 1 (Hiring Items)
+            if current item is available for hire
+                if current item has not already been selected
+                    add item to the list of items to hire
+                    add items price to the total current hire price
+
+                reset the display string
+                re-make the display string to include all items currently in the list of items to hire
+
+                print the new formatted list of Items selected for hire to the status bar
+
+        else if current program Mode = 2 (Return Items)
+            if current item is out on hire
+                if current item has not already been selected
+                    add item to the list of items to return
+
+                reset the display string
+                re-make the display string to include all items currently in the list of items to return
+
+                print the new formatted list of Items selected for return to the status bar
         """
         name = instance.text
         details = self.items_dict[name]
@@ -162,8 +218,17 @@ class ItemsForHireApp(App):
 
     def press_clear(self):
         """
-        Clear any buttons that have been selected (visually) and reset status text
+        Handler for pressing the Clear Button
+        returns all data to first states and resets the widget to first state
         :return: None
+        """
+        """
+        reset all buttons in main widget to normal
+        status_text = blank string
+        hiring_list = blank list
+        hiring_price = 0
+        items_to_display_string = blank string
+        returning_list = blank list
         """
         for instance in self.root.ids.entriesBox.children:
             instance.state = 'normal'
@@ -176,7 +241,8 @@ class ItemsForHireApp(App):
 
     def clear_all(self, instance):
         """
-        Clear any buttons that have been selected (visually) and reset status text
+        Function to reset only the Buttons on the widget to their normal states but not reset the data stored.
+        This allows us to have only one button selected at a time.
         :return: None
         """
         for instance in self.root.ids.entriesBox.children:
@@ -186,6 +252,7 @@ class ItemsForHireApp(App):
     def press_list_items(self):
         """
         Handler for pressing the list_items button
+        clears the date from Hiring/Returning Items and sets the program to Mode 0 (listing items)
         :return: None
         """
         self.press_clear()
@@ -194,6 +261,7 @@ class ItemsForHireApp(App):
     def press_hire_item(self):
         """
         Handler for pressing the hire_item button
+        displays instructions about how to hire items and sets the program Mode to 1 (Hire Items)
         :return: None
         """
         self.status_text = "Select Items to Hire Above\nPress 'Confirm' when ready to hire\n" \
@@ -203,6 +271,7 @@ class ItemsForHireApp(App):
     def press_return_item(self):
         """
         Handler for pressing the return_item button
+        displays instructions about how to return items and sets the program Mode to 2 (return Items)
         :return: None
         """
         self.status_text = "Select Items to Return Above\nPress 'Confirm' when ready to Return\n" \
@@ -212,6 +281,7 @@ class ItemsForHireApp(App):
     def press_new_item(self):
         """
         Handler for pressing the add_new_item button
+        Opens the popup widget to allow for data entry
         :return: None
         """
         self.status_text = "Enter details for the new Item"
@@ -219,10 +289,28 @@ class ItemsForHireApp(App):
 
     def press_save_new_item(self, new_item_name, new_item_description, new_item_price):
         """
-        Handler for pressing the save button in the add entry popup - save a new entry to memory
-        :param new_item_name: name text input (from popup GUI)
-        :param added_number: phone number text input (string)
+        Handler for pressing the save button in the add entry popup
+        :param new_item_name: name from text input (from popup GUI)
+        :param new_item_description: description from text input (from popup GUI)
+        :param new_item_price: price price from text input (from popup GUI)
         :return: None
+        """
+        """
+        Error Check new_item_name for blank string
+        Error Check new_item_description for blank string
+        Error check new_item_price for numerical float type input
+        Error check new_item_price for positive number (input > = 0) input
+
+        create Button with text(new_item_name)
+        set Button to run press_entry function on release
+        set Button to run clear_all on press
+        generate a widget for the Button
+        new_item(availability = 'in')
+        make Button colour Green
+        make sure that the buttons separate into columns of maximum 5
+
+        clear popup entry data
+        close popup
         """
         error_marker = 0
         try:
@@ -248,6 +336,7 @@ class ItemsForHireApp(App):
             self.root.ids.entriesBox.cols = len(self.items_dict) // 5 + 1
             temp_button = Button(text=new_item_name)
             temp_button.bind(on_release=self.press_entry)
+            temp_button.bind(on_press=self.clear_all)
             self.root.ids.entriesBox.add_widget(temp_button)
             temp_button.background_color = (0, 1, 0, 1)
             self.root.ids.popup_for_new_item.dismiss()
@@ -274,8 +363,37 @@ class ItemsForHireApp(App):
     def press_confirm_item(self):
         """
         Handler for pressing the confirm button
+        Confirms that the user will Hire/Return the currently selected Items
+        """
+        """
+        if current program Mode = 0
+            do nothing
+
+        else if current program Mode = 1 (hire Items)
+            for each item in hiring_list
+                update items_dict availability = 'out'
+
+            for each Button name in hiring_list
+                change button colour to Red
+
+            final_price = total_hiring_price
+            generate final message to display all items just hired
+
+        else if current program Mode = 2 (return Items)
+            for each item in returning_list
+                update items_dict availability = 'in'
+
+            for each Button name in hiring_list
+                change button colour to Green
+
+            generate final message to display all items just Returned
+
+        change current program Mode to 0 (list items)
+        run press_clear()
+        display final_message to status bar
 
         """
+        final_message = ""
         if self.mode == 1:
             for i in self.items_dict:
                 check_current_item = self.items_dict[i]
@@ -303,6 +421,7 @@ class ItemsForHireApp(App):
                 if instance.text in self.returning_list:
                     instance.background_color = (0, 1, 0, 1)
             final_message = "{}\n returned".format(self.items_to_display_string)
+
         self.mode = 0
         self.press_clear()
         self.status_text = "{}".format(final_message)
@@ -310,6 +429,7 @@ class ItemsForHireApp(App):
     def press_save(self):
         """
         Handler for pressing the save button
+        calls the functions needed to format the date and saves it to file
         :return: None
         """
         final_list = convert_item_dictionary_to_list(self.items_dict)
@@ -323,7 +443,7 @@ class ItemsForHireApp(App):
     def clear_fields(self):
         """
         Clear the text input fields from the add entry popup
-        If we don't do this, the popup will still have text in it when opened again
+        Clears the fields in the popup window entries
         :return: None
         """
         self.root.ids.new_item_name.text = ""
@@ -333,6 +453,7 @@ class ItemsForHireApp(App):
     def press_cancel(self):
         """
         Handler for pressing cancel in the add entry popup
+        clears the popup fields and closes the popup
         :return: None
         """
         self.root.ids.popup_for_new_item.dismiss()
@@ -341,7 +462,8 @@ class ItemsForHireApp(App):
 
     def on_stop(self):
         """
-        Handler for pressing the save button
+        function to save data to file on close
+        calls the functions needed to format the date and saves it to file
         :return: None
         """
         final_list = convert_item_dictionary_to_list(self.items_dict)
