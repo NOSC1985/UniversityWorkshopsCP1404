@@ -185,19 +185,23 @@ class ItemsForHireApp(App):
                 print the new formatted list of Items selected for return to the status bar
         """
         name = instance.text
-        details = self.items_dict[name]
-        description = details[0]
-        price = details[1]
-        availability = details[2]
+        item_object = self.item_list_object.get_specific_item(name)
+        #details = self.items_dict[name]
+        #description = details[0]
+        #price = details[1]
+        #availability = details[2]
 
         if self.mode == 0:
-            self.status_text = "'{}': {} \nPrice: ${}\nAvailability: {}".format(name, description, price, availability)
+            self.status_text = "'{}': {} \nPrice: ${}\nAvailability: {}".format(item_object.name,
+                                                                                item_object.description,
+                                                                                item_object.price,
+                                                                                item_object.availability)
 
         elif self.mode == 1:
-            if availability == 'in':
-                if name not in self.hiring_list:
+            if item_object.availability == 'in':
+                if item_object.name not in self.hiring_list:
                     self.hiring_list.append(name)
-                    self.total_hiring_price += float(price)
+                    self.total_hiring_price += float(item_object.price)
                 self.items_to_display_string = ""
                 for items in self.hiring_list:
                     self.items_to_display_string += "{}, ".format(items)
@@ -207,8 +211,8 @@ class ItemsForHireApp(App):
                                                                          str(self.total_hiring_price))
 
         elif self.mode == 2:
-            if availability == 'out':
-                if name not in self.returning_list:
+            if item_object.availability == 'out':
+                if item_object.name not in self.returning_list:
                     self.returning_list.append(name)
 
                 self.items_to_display_string = ""
@@ -261,6 +265,7 @@ class ItemsForHireApp(App):
         """
         self.press_clear()
         self.mode = 0
+        print(self.mode)
 
     def press_hire_item(self):
         """
@@ -271,6 +276,7 @@ class ItemsForHireApp(App):
         self.status_text = "Select Items to Hire Above\nPress 'Confirm' when ready to hire\n" \
                            "Press 'Clear' to restart your selection"
         self.mode = 1
+        print(self.mode)
 
     def press_return_item(self):
         """
@@ -281,6 +287,7 @@ class ItemsForHireApp(App):
         self.status_text = "Select Items to Return Above\nPress 'Confirm' when ready to Return\n" \
                            "Press 'Clear' to restart your selection"
         self.mode = 2
+        print(self.mode)
 
     def press_new_item(self):
         """
