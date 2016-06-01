@@ -16,6 +16,7 @@ Referenced material and studied various files from the Kivy Demos Provided
 https://github.com/CP1404/KivyDemos
 """
 from Item import *
+from ItemList import *
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.button import Button
@@ -32,7 +33,7 @@ items_lists = format_csv_file_data_for_use(import_file)
 import_file.close()
 
 """
-making a list of Item objects which were not used in this program
+making a list of Item objects and creating an ItemList class object
 """
 list_of_item_objects = []
 counter = 0
@@ -43,7 +44,8 @@ for item in items_lists:
     current_item_availability = item[3]
     current_item = Item(current_item_name, current_item_description, current_item_price, current_item_availability)
     list_of_item_objects.append(current_item)
-    counter += 1
+
+    item_list_object = ItemList(list_of_item_objects)
 
 
 def convert_item_list_to_dictionary(list_of_items):
@@ -99,6 +101,7 @@ class ItemsForHireApp(App):
         returning_list (allows the list of names of items which have been selected to be stored and accessed centrally)
         """
         super(ItemsForHireApp, self).__init__(**kwargs)
+        self.item_list_object = item_list_object
         self.items_dict = convert_item_list_to_dictionary(items_lists)
         self.mode = 0
         self.hiring_list = []
@@ -135,15 +138,16 @@ class ItemsForHireApp(App):
 
             make sure that the buttons separate into columns of maximum 5
         """
-        for name in self.items_dict:
-            temp_button = Button(text=name)
+        build_list = self.item_list_object.get_whole_list()
+        for name in build_list:
+            temp_button = Button(text=name.name)
             temp_button.bind(on_release=self.press_entry)
             temp_button.bind(on_press=self.clear_all)
             self.root.ids.entriesBox.add_widget(temp_button)
-            working_item = self.items_dict[name]
-            if working_item[2] == 'in':
+
+            if name.availability == 'in':
                 temp_button.background_color = (0, 1, 0, 1)
-            elif working_item[2] == 'out':
+            elif name.availability == 'out':
                 temp_button.background_color = (1, 0, 0, 1)
             self.root.ids.entriesBox.cols = len(self.items_dict) // 5 + 1
 
