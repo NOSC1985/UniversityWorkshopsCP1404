@@ -324,53 +324,33 @@ class ItemsForHireApp(App):
             new_item_price = new_item_price.strip('$')
             check_price = float(new_item_price)
 
-            if check_price < 0:
-                error_marker = 1
-                new_item_price = "error"
-                check_price = float(new_item_price)
-
             if new_item_name == "":
-                error_marker = 2
-                new_item_price = "error"
-                check_price = float(new_item_price)
-
-            if new_item_description == "":
-                error_marker = 3
-                new_item_price = "error"
-                check_price = float(new_item_price)
-
-            new_item = Item(new_item_name, new_item_description, new_item_price, "in")
-            print(new_item)
-            self.item_list_object.add_item(new_item)
-
-            print(len(self.item_list_object.get_whole_list()))
-
-            self.root.ids.entriesBox.cols = len(self.item_list_object.get_whole_list()) // 5 + 1
-            temp_button = Button(text=new_item_name)
-            temp_button.bind(on_release=self.press_entry)
-            temp_button.bind(on_press=self.clear_all)
-            self.root.ids.entriesBox.add_widget(temp_button)
-            temp_button.background_color = (0, 1, 0, 1)
-            self.root.ids.popup_for_new_item.dismiss()
-            self.clear_fields()
-            self.status_text = ""
-
-        except ValueError:
-            if error_marker == 0:
-                self.status_text = "Incorrect Input: Please Enter a Number"
-                self.root.ids.new_item_price.value = ""
-                self.root.ids.new_item_price.text = ""
-            elif error_marker == 1:
+                self.status_text = "Incorrect Input: Name Cannot Be Blank"
+            elif new_item_description == "":
+                self.status_text = "Incorrect Input: Description Cannot Be Blank"
+            elif check_price < 0:
                 self.status_text = "Incorrect Input: Price must not be Negative"
                 self.root.ids.new_item_price.value = ""
                 self.root.ids.new_item_price.text = ""
-            elif error_marker == 2:
-                self.status_text = "Incorrect Input: Name Cannot Be Blank"
+            else:
+                new_item = Item(new_item_name, new_item_description, new_item_price, "in")
+                print(new_item)
+                self.item_list_object.add_item(new_item)
+                print(len(self.item_list_object.get_whole_list()))
+                self.root.ids.entriesBox.cols = len(self.item_list_object.get_whole_list()) // 5 + 1
+                temp_button = Button(text=new_item_name)
+                temp_button.bind(on_release=self.press_entry)
+                temp_button.bind(on_press=self.clear_all)
+                self.root.ids.entriesBox.add_widget(temp_button)
+                temp_button.background_color = (0, 1, 0, 1)
+                self.root.ids.popup_for_new_item.dismiss()
+                self.clear_fields()
+                self.status_text = ""
 
-            elif error_marker == 3:
-                self.status_text = "Incorrect Input: Description Cannot Be Blank"
-
-            error_marker = 0
+        except ValueError:
+            self.status_text = "Incorrect Input: Please Enter a Number"
+            self.root.ids.new_item_price.value = ""
+            self.root.ids.new_item_price.text = ""
 
     def press_confirm_item(self):
         """
