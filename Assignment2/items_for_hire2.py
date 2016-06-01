@@ -109,6 +109,8 @@ class ItemsForHireApp(App):
         self.items_to_display_string = ""
         self.returning_list = []
 
+        print(len(self.item_list_object.get_whole_list()))
+
     def build(self):
         """
         Build the Kivy GUI
@@ -149,7 +151,7 @@ class ItemsForHireApp(App):
                 temp_button.background_color = (0, 1, 0, 1)
             elif name.availability == 'out':
                 temp_button.background_color = (1, 0, 0, 1)
-            self.root.ids.entriesBox.cols = len(self.items_dict) // 5 + 1
+            self.root.ids.entriesBox.cols = len(self.item_list_object.get_whole_list()) // 5 + 1
 
     def press_entry(self, instance):
         """
@@ -186,10 +188,6 @@ class ItemsForHireApp(App):
         """
         name = instance.text
         item_object = self.item_list_object.get_specific_item(name)
-        #details = self.items_dict[name]
-        #description = details[0]
-        #price = details[1]
-        #availability = details[2]
 
         if self.mode == 0:
             self.status_text = "'{}': {} \nPrice: ${}\nAvailability: {}".format(item_object.name,
@@ -265,7 +263,6 @@ class ItemsForHireApp(App):
         """
         self.press_clear()
         self.mode = 0
-        print(self.mode)
 
     def press_hire_item(self):
         """
@@ -276,7 +273,6 @@ class ItemsForHireApp(App):
         self.status_text = "Select Items to Hire Above\nPress 'Confirm' when ready to hire\n" \
                            "Press 'Clear' to restart your selection"
         self.mode = 1
-        print(self.mode)
 
     def press_return_item(self):
         """
@@ -287,7 +283,6 @@ class ItemsForHireApp(App):
         self.status_text = "Select Items to Return Above\nPress 'Confirm' when ready to Return\n" \
                            "Press 'Clear' to restart your selection"
         self.mode = 2
-        print(self.mode)
 
     def press_new_item(self):
         """
@@ -297,6 +292,7 @@ class ItemsForHireApp(App):
         """
         self.status_text = "Enter details for the new Item"
         self.root.ids.popup_for_new_item.open()
+        self.mode = 0
 
     def press_save_new_item(self, new_item_name, new_item_description, new_item_price):
         """
@@ -343,8 +339,13 @@ class ItemsForHireApp(App):
                 new_item_price = "error"
                 check_price = float(new_item_price)
 
-            self.items_dict[new_item_name] = [new_item_description, new_item_price, "in"]
-            self.root.ids.entriesBox.cols = len(self.items_dict) // 5 + 1
+            new_item = Item(new_item_name, new_item_description, new_item_price, "in")
+            print(new_item)
+            self.item_list_object.add_item(new_item)
+
+            print(len(self.item_list_object.get_whole_list()))
+
+            self.root.ids.entriesBox.cols = len(self.item_list_object.get_whole_list()) // 5 + 1
             temp_button = Button(text=new_item_name)
             temp_button.bind(on_release=self.press_entry)
             temp_button.bind(on_press=self.clear_all)
@@ -406,14 +407,11 @@ class ItemsForHireApp(App):
         """
         final_message = ""
         if self.mode == 1:
-            for i in self.items_dict:
-                check_current_item = self.items_dict[i]
-                if i in self.hiring_list:
-                    check_current_item[2] = 'out'
-                    self.items_dict[i] = check_current_item
+            for item in self.item_list_object.get_whole_list():
+                if item.name in self.hiring_list:
+                    item.availability = 'out'
 
             for instance in self.root.ids.entriesBox.children:
-                print(instance.text)
                 if instance.text in self.hiring_list:
                     instance.background_color = (1, 0, 0, 1)
 
@@ -421,14 +419,11 @@ class ItemsForHireApp(App):
             final_message = "{}\n Hired for: ${}".format(self.items_to_display_string, final_price)
 
         elif self.mode == 2:
-            for i in self.items_dict:
-                check_current_item = self.items_dict[i]
-                if i in self.returning_list:
-                    check_current_item[2] = 'in'
-                    self.items_dict[i] = check_current_item
+            for item in self.item_list_object.get_whole_list():
+                if item.name in self.returning_list:
+                    item.availability = 'in'
 
             for instance in self.root.ids.entriesBox.children:
-                print(instance.text)
                 if instance.text in self.returning_list:
                     instance.background_color = (0, 1, 0, 1)
             final_message = "{}\n returned".format(self.items_to_display_string)
@@ -443,7 +438,17 @@ class ItemsForHireApp(App):
         calls the functions needed to format the date and saves it to file
         :return: None
         """
-        final_list = convert_item_dictionary_to_list(self.items_dict)
+        list_to_finish = self.item_list_object.get_whole_list()
+        final_list = []
+        for item in list_to_finish:
+            item_name = item.name
+            item_description = item.description
+            item_price = item.price
+            item_availability = item.availability
+            item_details_list = [item_name, item_description, item_price, item_availability]
+            final_list.append(item_details_list)
+
+        #final_list = convert_item_dictionary_to_list(self.items_dict)
         save_file_data = format_csv_file_data_to_save(final_list)
         save_file = open("{}".format(FILE_NAME), mode='w')
         save_file.write(save_file_data)
@@ -477,7 +482,17 @@ class ItemsForHireApp(App):
         calls the functions needed to format the date and saves it to file
         :return: None
         """
-        final_list = convert_item_dictionary_to_list(self.items_dict)
+        list_to_finish = self.item_list_object.get_whole_list()
+        final_list = []
+        for item in list_to_finish:
+            item_name = item.name
+            item_description = item.description
+            item_price = item.price
+            item_availability = item.availability
+            item_details_list = [item_name, item_description, item_price, item_availability]
+            final_list.append(item_details_list)
+
+        #final_list = convert_item_dictionary_to_list(self.items_dict)
         save_file_data = format_csv_file_data_to_save(final_list)
         save_file = open("{}".format(FILE_NAME), mode='w')
         save_file.write(save_file_data)

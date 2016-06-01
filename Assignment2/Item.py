@@ -7,6 +7,5 @@ class Item:
         self.price = price
         self.availability = availability
 
-
-
-
+    def __str__(self):
+        return "{}, {}, {}, {}".format(self.name, self.description, self.price, self.availability)
