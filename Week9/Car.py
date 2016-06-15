@@ -142,3 +142,46 @@ class SilverServiceTaxi(Taxi):
         """ get the price for the taxi trip """
         return ((self.price_per_km * self.fanciness) * self.current_fare_distance) + self.flagfall
 
+
+def Limousine(SilverServiceTaxi):
+
+    def __init__(self, fuel, name, fanciness):
+        super().__init__(fuel, name, fanciness)
+        self.flagfall = (SilverServiceTaxi.FLAGFALL_CHARGE * 5)
+        self.extra_services = randint(10, 100)
+
+    def get_fare(self):
+        """ get the price for the taxi trip """
+        return ((self.price_per_km * self.fanciness) * self.current_fare_distance) + self.flagfall + self.extra_services
+
+
+def ArmoredVehicle(Car):
+
+    def __init__(self, fuel, name, callsign, armor, weapon):
+       super().__init__(fuel, name)
+       self.callsign = callsign
+       self.armor = armor
+       self.weapon = weapon
+
+    def drive(self, distance):
+        """
+        drive the car a given distance if it has enough fuel
+        or drive until fuel runs out
+        return the distance actually driven
+        """
+        if (distance + self.armor/5) > self.fuel:
+            distance = self.fuel
+            self.fuel = 0
+        else:
+            self.fuel -= (distance + self.armor/5)
+        self.odometer += distance
+        return distance
+
+    def __str__(self):
+        """
+        Define the formatting for printing to screen
+        :return: String formatting
+        """
+
+        return "CallSign:{} Armored Vehicle Model:{}, Fuel = {}, Odometer = {}, Armor = {}\nCurrent Payload = {}"\
+            .format(self.callsign, self.name, self.fuel, self.odometer, self.armor, self.weapon)

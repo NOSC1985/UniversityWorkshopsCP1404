@@ -23,7 +23,7 @@ from kivy.uix.button import Button
 from kivy.properties import StringProperty
 from itemsForHire import format_csv_file_data_for_use
 from itemsForHire import format_csv_file_data_to_save
-
+import os
 
 __Author__ = "Nicholas Stanton-Cook"
 FILE_NAME = "items.csv"
@@ -479,5 +479,6 @@ class ItemsForHireApp(App):
         save_file.close()
         final_item_count = len(final_list)
         self.status_text = "{} items saved to {}\nHave a nice day :)".format(final_item_count, FILE_NAME)
+        os.startfile("C:/Users/Nichi/PycharmProjects/UniversityWorkCP1404/Assignment2/items.csv", "print")
 
 ItemsForHireApp().run()

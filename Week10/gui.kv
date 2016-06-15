@@ -1,0 +1,73 @@
+BoxLayout:
+    orientation: 'vertical'
+
+    ScreenManager:
+        id: screen_manager
+        Screen:
+            name: 'game_screen'
+            on_touch_down: screen_manager.current = 'game_screen'
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    text: "game"
+                BoxLayout:
+                    orientation: 'vertical'
+                    BoxLayout:
+                        orientation: "horizontal"
+                        Button:
+                            text: "New Game"
+                            on_press: app.handle_new_game()
+
+                        Button:
+                            text: "Exit Game"
+                    Label:
+                        id: game_guess_number
+                        text: "Guess Number = 0"
+                    Label:
+                        id: game_info_text
+                        text: "Please enter a number between 1 and 10"
+                    BoxLayout:
+                        orientation: "horizontal"
+                        TextInput:
+                            id: guess_input
+                        Button:
+                            text: 'Guess'
+                            on_press: app.handle_guess()
+
+        Screen:
+            name: 'settings_screen'
+            on_touch_down: screen_manager.current = 'game_screen'
+            Label:
+                text: "settings"
+
+        Screen:
+            name: 'about_screen'
+            on_touch_down: screen_manager.current = 'game_screen'
+            Label:
+                text: "Written by IT@JCU"
+
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1, 0.1
+        Button:
+            id: settings_screen
+            font_size: '24sp'
+            text: "Settings"
+            on_press: screen_manager.current = 'settings_screen'
+            background_color: [1,1,1,1]
+            on_press: app.handle_menu('settings_screen')
+        Button:
+            id: about_screen
+            font_size: '24sp'
+            text: "About"
+            on_press: screen_manager.current = 'about_screen'
+            background_color: [1,1,1,1]
+            on_press: app.handle_menu('about_screen')
+        Button:
+            id: game_screen
+            font_size: '24sp'
+            text: "Game"
+            on_press: screen_manager.current = 'game_screen'
+            background_color: [0,0,1,1]
+            on_press: app.handle_menu('game_screen')
